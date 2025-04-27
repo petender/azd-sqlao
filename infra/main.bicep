@@ -10,6 +10,7 @@ param environmentName string
 param location string
 
 param adminuser string
+@secure()
 param adminPassword string
 
 param TimeZone string = 'Central Standard Time'

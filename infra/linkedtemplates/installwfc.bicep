@@ -24,7 +24,7 @@ resource computerName_Microsoft_Powershell_DSC 'Microsoft.Compute/virtualMachine
     typeHandlerVersion: '2.19'
     autoUpgradeMinorVersion: true
     settings: {
-      ModulesUrl: '${_artifactsLocation}/DSC/INSTALLFWFC.zip?raw=true'
+      ModulesUrl: '${_artifactsLocation}/DSC/INSTALLWFC.zip?raw=true'
       ConfigurationFunction: ConfigurationFunction
       
     }
