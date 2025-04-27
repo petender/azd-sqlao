@@ -9,6 +9,9 @@ param environmentName string
 @description('Primary location for all resources')
 param location string
 
+param adminuser string
+param adminPassword string
+
 param TimeZone string = 'Central Standard Time'
 
 param _artifactsLocation string = 'https://github.com/petender/azd-sqlao/blob/main/infra/'
@@ -38,8 +41,8 @@ module sqlao 'sqlao.bicep' = {
   name: 'resources'
   scope: rg
   params: {
-    adminUsername: 'adminuser'
-    adminPassword : 'P@ssw0rd!'
+    adminUsername: adminuser
+    adminPassword : adminPassword
     WindowsLicenseType : 'None'
     SQLLicenseType : 'AHUB'
     AvailabilitySetName : 'MTT-SQL-AVS'
