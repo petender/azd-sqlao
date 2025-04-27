@@ -1,6 +1,6 @@
 targetScope = 'resourceGroup'
 
-
+param TimeZone string = 'Central Standard Time'
 @description('The name of the Administrator of the new VM and Domain')
 param adminUsername string
 
@@ -229,6 +229,7 @@ module deployDC1VM 'linkedtemplates/1nic-2disk-vm.bicep' /*TODO: replace with co
     adminUsername: adminUsername
     adminPassword: adminPassword
     location: resourceGroup().location
+    
   }
   dependsOn: [
     VNet1
@@ -246,6 +247,7 @@ module promotedc1 'linkedtemplates/firstdc.bicep' /*TODO: replace with correct p
     _artifactsLocation: _artifactsLocation
     _artifactsLocationSasToken: _artifactsLocationSasToken
     location: resourceGroup().location
+    TimeZone: TimeZone
   }
   dependsOn: [
     deployDC1VM
@@ -364,6 +366,7 @@ module InstallSQLManagementStudio 'linkedtemplates/ssms.bicep' /*TODO: replace w
     _artifactsLocation: _artifactsLocation
     _artifactsLocationSasToken: _artifactsLocationSasToken
     location: resourceGroup().location
+    
   }
   dependsOn: [
     DomainJoinToolVM
@@ -394,8 +397,8 @@ module DeploySQLAvailabilitySet 'linkedtemplates/availabilityset.bicep' /*TODO: 
   name: 'DeploySQLAvailabilitySet'
   params: {
     AvailabilitySetName: AvailabilitySetName
-    UpdateDomainCount: '5'
-    FaultDomainCount: '2'
+    UpdateDomainCount: 5
+    FaultDomainCount: 2
     Sku: 'Aligned'
     location: resourceGroup().location
   }
@@ -618,6 +621,7 @@ module GrantInstallLocalAdminSQLVM1 'linkedtemplates/grantlocaladmin.bicep' /*TO
     location: resourceGroup().location
     _artifactsLocation: _artifactsLocation
     _artifactsLocationSasToken: _artifactsLocationSasToken
+    TimeZone: TimeZone
   }
   dependsOn: [
     DomainJoinSQL1VM
@@ -633,6 +637,7 @@ module GrantInstallLocalAdminSQLVM2 'linkedtemplates/grantlocaladmin.bicep' /*TO
     location: resourceGroup().location
     _artifactsLocation: _artifactsLocation
     _artifactsLocationSasToken: _artifactsLocationSasToken
+    TimeZone: TimeZone
   }
   dependsOn: [
     DomainJoinSQL2VM
@@ -684,6 +689,7 @@ module InstallWFCSQLVM1 'linkedtemplates/installwfc.bicep' /*TODO: replace with 
     location: resourceGroup().location
     _artifactsLocation: _artifactsLocation
     _artifactsLocationSasToken: _artifactsLocationSasToken
+    TimeZone: TimeZone
   }
   dependsOn: [
     CreateSQLLoginforInstallSQLVM1
@@ -697,6 +703,7 @@ module InstallWFCSQLVM2 'linkedtemplates/installwfc.bicep' /*TODO: replace with 
     location: resourceGroup().location
     _artifactsLocation: _artifactsLocation
     _artifactsLocationSasToken: _artifactsLocationSasToken
+    TimeZone: TimeZone
   }
   dependsOn: [
     CreateSQLLoginforInstallSQLVM2

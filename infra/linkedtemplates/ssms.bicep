@@ -4,13 +4,13 @@ param computerName string
 @description('Region of Resources')
 param location string
 
+
 @description('The location of resources, such as templates and DSC modules, that the template depends on')
 param _artifactsLocation string 
 @description('Auto-generated token to access _artifactsLocation')
 @secure()
 param _artifactsLocationSasToken string
 
-var ModulesURL = uri(_artifactsLocation, '/DSC/SSMS.zip${_artifactsLocationSasToken}')
 var ConfigurationFunction = 'SSMS.ps1\\SSMS'
 
 resource computerName_Microsoft_Powershell_DSC 'Microsoft.Compute/virtualMachines/extensions@2019-03-01' = {

@@ -4,6 +4,8 @@ param computerName string
 @description('Region of Resources')
 param location string
 
+param TimeZone string
+
 @description('The location of resources, such as templates and DSC modules, that the template depends on')
 param _artifactsLocation string 
 @description('Auto-generated token to access _artifactsLocation')
@@ -24,6 +26,7 @@ resource computerName_Microsoft_Powershell_DSC 'Microsoft.Compute/virtualMachine
     settings: {
       ModulesUrl: '${_artifactsLocation}/DSC/INSTALLFWFC.zip?raw=true'
       ConfigurationFunction: ConfigurationFunction
+      
     }
     protectedSettings: {}
   }

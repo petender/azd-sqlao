@@ -9,6 +9,8 @@ param environmentName string
 @description('Primary location for all resources')
 param location string
 
+param TimeZone string = 'Central Standard Time'
+
 param _artifactsLocation string = 'https://github.com/petender/azd-sqlao/blob/main/infra/'
 
 @description('Auto-generated token to access _artifactsLocation')

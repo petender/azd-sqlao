@@ -10,6 +10,8 @@ param domainName string
 @description('Region of Resources')
 param location string
 
+param TimeZone string
+
 @description('The name of the Administrator of the new VM and Domain')
 param adminUsername string
 
@@ -23,7 +25,6 @@ param _artifactsLocation string
 @secure()
 param _artifactsLocationSasToken string
 
-var ModulesURL = uri(_artifactsLocation, '/DSC/FIRSTDC.zip${_artifactsLocationSasToken}')
 var ConfigurationFunction = 'FIRSTDC.ps1\\FIRSTDC'
 
 resource computerName_Microsoft_Powershell_DSC 'Microsoft.Compute/virtualMachines/extensions@2019-03-01' = {
@@ -39,6 +40,7 @@ resource computerName_Microsoft_Powershell_DSC 'Microsoft.Compute/virtualMachine
       ConfigurationFunction: ConfigurationFunction
       Properties: {
         DomainName: domainName
+        TimeZone: TimeZone
         NetBiosDomain: NetBiosDomain
         AdminCreds: {
           UserName: adminUsername

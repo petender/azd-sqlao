@@ -2,10 +2,10 @@
 param AvailabilitySetName string
 
 @description('Number of Update Domains')
-param UpdateDomainCount string
+param UpdateDomainCount int
 
 @description('Number of Fault Domains')
-param FaultDomainCount string
+param FaultDomainCount int
 
 @description('Set SKU Type to either Aligned or Classic')
 param Sku string
