@@ -1,6 +1,6 @@
-# AZD Trainer-Demo-Deploy Starter template
+# SQL Server 2022 Always On Cluster
 
-This template could be used as a starting point for creating your own AZD-compatible templates, which you will contribute to [Trainer-Demo-Deploy](https://aka.ms/trainer-demo-deploy). 
+This demo deploys the necessary Azure Virtual Machine resources, to run a SQL Qlways-On Cluster in an ADDS Domain. There is also an additional Management Workstation with SQL Server Management Studio.  
 
 ## ⬇️ Installation
 - [Azure Developer CLI - AZD](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/install-azd)
@@ -21,7 +21,7 @@ cd tdd-azd-starter
 ```
 3. Next, run `azd init` to initialize the deployment.
 ```
-azd init -t petender/tdd-azd-starter
+azd init -t petender/tdd-azd-sqlao
 ```
 4. Copy the starter template into its own directory and modify the template.
 ```
