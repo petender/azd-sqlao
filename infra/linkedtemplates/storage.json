@@ -1,0 +1,38 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "storageAccountName": {
+            "type": "string",
+            "metadata": {
+                "description": "Name of Storage Account"
+            }
+        },
+        "location": {
+            "type": "string",
+          "metadata": {
+            "description": "Region of Resources"
+          }
+        }
+    },  
+    "variables": {
+        "storageAccountId": "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]"
+    },         
+    "resources": [
+        {
+            "apiVersion": "2018-02-01",
+            "type": "Microsoft.Storage/storageAccounts",
+            "name": "[parameters('storageAccountName')]",
+            "location": "[parameters('location')]",
+            "sku": { "name": "Standard_LRS" },
+            "kind": "StorageV2"
+        }             
+    ],
+    "outputs": {
+        "Key": {
+            "type": "string",
+            "value": "[listKeys(variables('storageAccountId'), '2019-04-01').keys[0].value]"
+        }
+    }    
+}
+  

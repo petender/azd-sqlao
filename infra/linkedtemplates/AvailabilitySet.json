@@ -1,0 +1,51 @@
+{
+"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+"contentVersion": "1.0.0.0",
+"parameters": {
+    "AvailabilitySetName": {
+        "type": "string",
+        "metadata": {
+          "description": "Name of Availability Set"
+        }
+    },
+    "UpdateDomainCount": {
+        "type": "string",
+        "metadata": {
+            "description": "Number of Update Domains"
+          }
+    },
+    "FaultDomainCount": {
+        "type": "string",
+        "metadata": {
+            "description": "Number of Fault Domains"
+          }
+    },        
+    "Sku": {
+        "type": "string",
+        "metadata": {
+            "description": "Set SKU Type to either Aligned or Classic"
+          }
+    },    
+    "location": {
+        "type": "string",
+        "metadata": {
+          "description": "Specifies the location of creation"
+        }
+    }
+},
+"resources": [
+    {
+        "name": "[parameters('AvailabilitySetName')]",
+        "type": "Microsoft.Compute/availabilitySets",
+        "apiVersion": "2018-10-01",
+        "location": "[parameters('location')]",
+        "properties": {
+          "platformUpdateDomainCount": "[parameters('UpdateDomainCount')]",
+          "platformFaultDomainCount": "[parameters('FaultDomainCount')]"
+        },
+        "sku":{
+            "name": "[parameters('Sku')]"
+        }
+      }
+   ]
+}

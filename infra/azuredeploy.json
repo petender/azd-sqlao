@@ -1,0 +1,2181 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "TimeZone": {
+      "type": "string",
+      "defaultValue": "Pacific Standard Time",
+      "allowedValues": [
+        "Afghanistan Standard Time",
+        "Alaskan Standard Time",
+        "Aleutian Standard Time",
+        "Altai Standard Time",
+        "Arab Standard Time",
+        "Arabian Standard Time",
+        "Arabic Standard Time",
+        "Argentina Standard Time",
+        "Astrakhan Standard Time",
+        "Atlantic Standard Time",
+        "AUS Central Standard Time",
+        "Aus Central W. Standard Time",
+        "AUS Eastern Standard Time",
+        "Azerbaijan Standard Time",
+        "Azores Standard Time",
+        "Bahia Standard Time",
+        "Bangladesh Standard Time",
+        "Belarus Standard Time",
+        "Bougainville Standard Time",
+        "Canada Central Standard Time",
+        "Cape Verde Standard Time",
+        "Caucasus Standard Time",
+        "Cen. Australia Standard Time",
+        "Central America Standard Time",
+        "Central Asia Standard Time",
+        "Central Brazilian Standard Time",
+        "Central Europe Standard Time",
+        "Central European Standard Time",
+        "Central Pacific Standard Time",
+        "Central Standard Time (Mexico)",
+        "Central Standard Time",
+        "Chatham Islands Standard Time",
+        "China Standard Time",
+        "Cuba Standard Time",
+        "Dateline Standard Time",
+        "E. Africa Standard Time",
+        "E. Australia Standard Time",
+        "E. Europe Standard Time",
+        "E. South America Standard Time",
+        "Easter Island Standard Time",
+        "Eastern Standard Time (Mexico)",
+        "Eastern Standard Time",
+        "Egypt Standard Time",
+        "Ekaterinburg Standard Time",
+        "Fiji Standard Time",
+        "FLE Standard Time",
+        "Georgian Standard Time",
+        "GMT Standard Time",
+        "Greenland Standard Time",
+        "Greenwich Standard Time",
+        "GTB Standard Time",
+        "Haiti Standard Time",
+        "Hawaiian Standard Time",
+        "India Standard Time",
+        "Iran Standard Time",
+        "Israel Standard Time",
+        "Jordan Standard Time",
+        "Kaliningrad Standard Time",
+        "Korea Standard Time",
+        "Libya Standard Time",
+        "Line Islands Standard Time",
+        "Lord Howe Standard Time",
+        "Magadan Standard Time",
+        "Magallanes Standard Time",
+        "Marquesas Standard Time",
+        "Mauritius Standard Time",
+        "Middle East Standard Time",
+        "Montevideo Standard Time",
+        "Morocco Standard Time",
+        "Mountain Standard Time (Mexico)",
+        "Mountain Standard Time",
+        "Myanmar Standard Time",
+        "N. Central Asia Standard Time",
+        "Namibia Standard Time",
+        "Nepal Standard Time",
+        "New Zealand Standard Time",
+        "Newfoundland Standard Time",
+        "Norfolk Standard Time",
+        "North Asia East Standard Time",
+        "North Asia Standard Time",
+        "North Korea Standard Time",
+        "Omsk Standard Time",
+        "Pacific SA Standard Time",
+        "Pacific Standard Time (Mexico)",
+        "Pacific Standard Time",
+        "Pakistan Standard Time",
+        "Paraguay Standard Time",
+        "Qyzylorda Standard Time",
+        "Romance Standard Time",
+        "Russia Time Zone 10",
+        "Russia Time Zone 11",
+        "Russia Time Zone 3",
+        "Russian Standard Time",
+        "SA Eastern Standard Time",
+        "SA Pacific Standard Time",
+        "SA Western Standard Time",
+        "Saint Pierre Standard Time",
+        "Sakhalin Standard Time",
+        "Samoa Standard Time",
+        "Sao Tome Standard Time",
+        "Saratov Standard Time",
+        "SE Asia Standard Time",
+        "Singapore Standard Time",
+        "South Africa Standard Time",
+        "Sri Lanka Standard Time",
+        "Sudan Standard Time",
+        "Syria Standard Time",
+        "Taipei Standard Time",
+        "Tasmania Standard Time",
+        "Tocantins Standard Time",
+        "Tokyo Standard Time",
+        "Tomsk Standard Time",
+        "Tonga Standard Time",
+        "Transbaikal Standard Time",
+        "Turkey Standard Time",
+        "Turks And Caicos Standard Time",
+        "Ulaanbaatar Standard Time",
+        "US Eastern Standard Time",
+        "US Mountain Standard Time",
+        "UTC",
+        "UTC+12",
+        "UTC+13",
+        "UTC-02",
+        "UTC-08",
+        "UTC-09",
+        "UTC-11",
+        "Venezuela Standard Time",
+        "Vladivostok Standard Time",
+        "Volgograd Standard Time",
+        "W. Australia Standard Time",
+        "W. Central Africa Standard Time",
+        "W. Europe Standard Time",
+        "W. Mongolia Standard Time",
+        "West Asia Standard Time",
+        "West Bank Standard Time",
+        "West Pacific Standard Time",
+        "Yakutsk Standard Time"
+      ],      
+      "metadata": {
+          "description": "Time Zone"
+      }
+    },                     
+    "adminUsername": {
+        "type": "string",
+        "metadata": {
+            "description": "The name of the Administrator of the new VM and Domain"
+        }
+    },
+    "adminPassword": {
+        "type": "securestring",
+      "metadata": {
+        "description": "The password for the Administrator account of the new VM and Domain"
+      }
+    },
+    "WindowsLicenseType": {
+      "type": "string",
+      "defaultValue": "None",
+      "allowedValues": [
+        "None",
+        "Windows_Server"
+      ],      
+      "metadata": {
+          "description": "Windows OS License Type"
+      }
+    },  
+    "SQLLicenseType": {
+      "type": "string",
+      "defaultValue": "AHUB",
+      "allowedValues": [
+        "AHUB",
+        "DR",
+        "PAYG"
+      ],      
+      "metadata": {
+          "description": "SQL License Type"
+      }
+    },           
+    "AvailabilitySetName": {
+        "type": "string",
+      "defaultValue": "MTT-SQL-AVS",
+        "metadata": {
+            "description": "Availability Set Name"
+        }
+    },    
+    "LoadBalancerName": {
+        "type": "string",
+        "defaultValue": "MTT-SQL-LB",
+        "metadata": {
+            "description": "Load Balancer Name"
+        }
+    },
+    "ServiceAccount": {
+        "type": "string",
+        "defaultValue": "SQLSvc",        
+        "metadata": {
+            "description": "SQL Service Account Name"
+        }
+    },    
+    "InstallAccount": {
+        "type": "string",
+        "defaultValue": "Install",                
+        "metadata": {
+            "description": "SQL Install Account Name"
+        }
+    },        
+    "OSDiskType": {
+      "type": "string",
+      "defaultValue": "Premium_LRS",
+      "metadata": {
+        "description": "SQL Node1 Number"
+      }
+    },
+    "SqlClusterName": {
+      "type": "string",
+      "defaultValue": "MTT-CLUST",
+      "metadata": {
+        "description": "Windows Failover Cluster Name"
+      }
+    },                                     
+    "SQLAGName": {
+      "type": "string",
+      "defaultValue": "MTT-AG",
+      "metadata": {
+        "description": "SQL Availability Group Name"
+      }
+    },                             
+    "SQLAPName": {
+      "type": "string",
+      "defaultValue": "MTT-AP",
+      "metadata": {
+        "description": "SQL Access Point Name"
+      }
+    },                                 
+    "SQLNode1": {
+      "type": "string",
+      "defaultValue": "01",
+      "metadata": {
+        "description": "SQL Node1 Number (Example:  01)"
+      }
+    },    
+    "SQLNode2": {
+      "type": "string",
+      "defaultValue": "02",
+      "metadata": {
+        "description": "SQL Node2 Number (Example:  02)"
+      }
+    },
+    "SQLLastAPOctet": {
+      "type": "string",
+      "defaultValue": "10",
+      "metadata": {
+        "description": "SQL Access Point Last Octet (Example:  10)"
+      }
+    },                             
+    "SQL1LastPrivOctet": {
+      "type": "string",
+      "defaultValue": "11",
+      "metadata": {
+        "description": "SQL Node1 Last Private Octet (Example:  11)"
+      }
+    },                 
+    "SQL2LastPrivOctet": {
+      "type": "string",
+      "defaultValue": "12",
+      "metadata": {
+        "description": "SQL Node2 Last Private Octet (Example:  12)"
+      }
+    },
+    "SQL1LastPubOctet": {
+      "type": "string",
+      "defaultValue": "11",
+      "metadata": {
+        "description": "SQL Node1 Last Public Octet (Example:  11)"
+      }
+    },        
+    "SQL2LastPubOctet": {
+      "type": "string",
+      "defaultValue": "12",
+      "metadata": {
+        "description": "SQL Node2 Last Public Octet (Example:  12)"
+      }
+    },        
+    "SQL1DGLastPubOctet": {
+      "type": "string",
+      "defaultValue": "1",
+      "metadata": {
+        "description": "SQL Node1 Default Gateway Last Data Octet (Example:  1)"
+      }
+    },                    
+    "SQL2DGLastPubOctet": {
+      "type": "string",
+      "defaultValue": "1",
+      "metadata": {
+        "description": "SQL Node2 Default Gateway Last Data Octet (Example:  1)"
+      }
+    },                
+    "NamingConvention": {
+      "type": "string",
+      "defaultValue": "mtt",
+      "minLength": 1,
+      "maxLength": 40,
+      "metadata": {
+        "description": "Environment Naming Convention"
+      }
+    },
+    "StorageAccountPrefix": {
+      "type": "string",
+      "defaultValue": "mtt",      
+      "minLength": 3,
+      "maxLength": 24,
+      "metadata": {
+        "description": "Environment Naming Convention"
+      }      
+    },    
+    "SubDNSDomain": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+          "description": "Sub DNS Domain Name Example:  sub1. must include a DOT AT END"
+      }
+    },     
+    "SubDNSBaseDN": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+          "description": "Sub DNS Domain Name Example:  DC=sub2,DC=sub1, must include COMMA AT END"
+      }
+    },            
+    "NetBiosDomain": {
+      "type": "string",
+      "defaultValue": "mttdemodomain",
+      "maxLength": 15,       
+      "metadata": {
+          "description": "NetBios Parent Domain Name"
+      }
+    },  
+    "InternalDomain": {
+      "type": "string",
+      "defaultValue": "mttdemodomain",
+      "metadata": {
+          "description": "NetBios Domain Name"
+      }
+    },   
+    "InternalTLD": {
+      "type": "string",
+      "defaultValue": "com",
+      "allowedValues": [
+        "com",
+        "net",
+        "org",
+        "edu",
+        "gov",
+        "mil",
+        "us",
+        "tk",
+        "ml",
+        "local"
+      ],      
+      "metadata": {
+          "description": "Internal Top-Level Domain Name"
+      }
+    },         
+    "VNet1ID": {
+      "type": "string",
+      "defaultValue": "10.1",
+      "metadata": {
+        "description": "VNet1 Prefix"
+      }
+    },   
+    "ReverseLookup1": {
+      "type": "string",
+      "defaultValue": "1.10",
+      "metadata": {
+          "description": "DNS Reverse Lookup Zone1 Prefix"
+      }
+    },                        
+    "DC1OSVersion": {
+        "type": "string",
+        "defaultValue": "2019-Datacenter",
+        "allowedValues": [
+          "2019-Datacenter",
+          "2016-Datacenter",
+          "2012-R2-Datacenter"
+        ],
+        "metadata": {
+            "description": "Domain Controller1 OS Version"
+        }
+    },
+    "ToolOSVersion": {
+      "type": "string",
+        "defaultValue": "2019-Datacenter",
+        "allowedValues": [
+          "2019-Datacenter",
+          "2016-Datacenter",
+          "2012-R2-Datacenter"
+        ],
+      "metadata": {
+          "description": "Tools Machine OS Version"
+      }
+  },    
+    "DC1VMSize": {
+        "type": "string",
+        "defaultValue": "Standard_D2s_v3",
+        "metadata": {
+            "description": "Domain Controller1 VMSize"
+        }
+    },        
+    "ToolVMSize": {
+      "type": "string",
+      "defaultValue": "Standard_D2s_v3",
+      "metadata": {
+          "description": "Tools Machine VMSize"
+      }
+    },     
+    "SQLVMSize": {
+        "type": "string",
+        "defaultValue": "Standard_D8s_v3",
+        "metadata": {
+            "description": "SQL VMSize"
+        }
+    },        
+    "_artifactsLocation": {
+      "type": "string",
+      "metadata": {
+          "description": "The location of resources, such as templates and DSC modules, that the template depends on"
+      },
+      "defaultValue": "https://attdemodeploystoacc.blob.core.windows.net/deployartifacts/deploytemplateartifacts"
+    },
+    "_artifactsLocationSasToken": {
+        "type": "securestring",
+        "metadata": {
+            "description": "Auto-generated token to access _artifactsLocation. Leave it blank unless you need to provide your own value."
+        },
+        "defaultValue": ""
+    }    
+  },
+  "variables": {
+    "vnet1Name": "[concat(parameters('NamingConvention'),'-VNet1')]",
+    "vnet1Prefix": "[concat(parameters('vnet1ID'),'.0.0/16')]",    
+    "vnet1subnet1Name": "[concat(parameters('NamingConvention'),'-VNet1-Subnet1')]", 
+    "vnet1subnet1Prefix": "[concat(parameters('vnet1ID'),'.1.0/24')]",           
+    "vnet1subnet2Name": "[concat(parameters('NamingConvention'),'-VNet1-Subnet2')]",  
+    "vnet1subnet2Prefix": "[concat(parameters('vnet1ID'),'.2.0/24')]",    
+    "vnet1BastionsubnetPrefix": "[concat(parameters('vnet1ID'),'.253.0/24')]",                  
+    "StorageAccountName": "[concat(parameters('StorageAccountPrefix'), uniqueString(resourceGroup().id))]",
+    "StorageEndpoint": "core.windows.net",                    
+    "dc1name": "[concat(parameters('NamingConvention'),'-dc-01')]", 
+    "dc1IP": "[concat(parameters('vnet1ID'),'.1.',variables('dc1lastoctet'))]",        
+    "ReverseLookup1": "[concat('1.',parameters('ReverseLookup1'))]",    
+    "dc1lastoctet": "101",        
+    "toollastoctet": "201",            
+    "toolname": "toolVM-01",           
+    "toolIP": "[concat(parameters('vnet1ID'),'.2.',variables('toollastoctet'))]",        
+    "DCDataDisk1Name": "NTDS",            
+    "InternaldomainName": "[concat(parameters('SubDNSDomain'),parameters('InternalDomain'),'.',parameters('InternalTLD'))]",
+    "BaseDN": "[concat(parameters('SubDNSBaseDN'),'DC=',parameters('InternalDomain'),',DC=',parameters('InternalTLD'))]",
+    "sqldbname": "[concat(parameters('NamingConvention'),'-db01')]",         
+    "sqlname1": "[concat(parameters('NamingConvention'),'-sql-',parameters('sqlnode1'))]",                      
+    "sqlname2": "[concat(parameters('NamingConvention'),'-sql-',parameters('sqlnode2'))]",     
+    "sqlapIP": "[concat(parameters('vnet1ID'),'.2.',parameters('sqllastapoctet'))]", 
+    "sql1privIP": "[concat(parameters('vnet1ID'),'.1.',parameters('sql1lastprivoctet'))]",     
+    "sql2privIP": "[concat(parameters('vnet1ID'),'.1.',parameters('sql2lastprivoctet'))]",                                  
+    "sql1pubIP": "[concat(parameters('vnet1ID'),'.2.',parameters('sql1lastpuboctet'))]", 
+    "sql2pubIP": "[concat(parameters('vnet1ID'),'.2.',parameters('sql2lastpuboctet'))]", 
+    "sql1DGpubIP": "[concat(parameters('vnet1ID'),'.2.',parameters('sql1DGlastpuboctet'))]",             
+    "sql2DGpubIP": "[concat(parameters('vnet1ID'),'.2.',parameters('sql2DGlastpuboctet'))]",         
+    "Subnet1ID": "[concat(parameters('vnet1ID'),'.1')]",             
+    "Subnet2ID": "[concat(parameters('vnet1ID'),'.2')]",             
+    "SRVOUPath": "[concat('OU=Servers,',variables('BaseDN'))]",
+    "LoadBalancerSku": "Standard"                
+  },  
+  "resources": [
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "VNet1",
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/vnet.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "vnetName": {
+                  "value": "[variables('vnet1Name')]"
+              },
+              "vnetprefix": {
+                  "value": "[variables('vnet1Prefix')]"
+              },
+              "subnet1Name": {
+                  "value": "[variables('vnet1subnet1Name')]"
+              },
+              "subnet1Prefix": {
+                  "value": "[variables('vnet1subnet1Prefix')]"
+              },
+              "subnet2Name": {
+                "value": "[variables('vnet1subnet2Name')]"
+              },
+              "subnet2Prefix": {
+                "value": "[variables('vnet1subnet2Prefix')]"
+              },              
+              "BastionsubnetPrefix": {
+                "value": "[variables('vnet1BastionsubnetPrefix')]"
+              },              
+              "location": {
+                  "value": "[resourceGroup().location]"
+              }
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "BastionHost1",
+      "dependsOn": [
+        "VNet1"
+      ],
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/bastionhost.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "publicIPAddressName": {
+                "value": "[concat(variables('vnet1Name'),'-Bastion-pip')]"
+              },
+              "AllocationMethod": {
+                "value": "Static"
+              },              
+              "vnetName": {
+                  "value": "[variables('vnet1Name')]"
+              },
+              "subnetName": {
+                  "value": "AzureBastionSubnet"
+              },
+              "location": {
+                  "value": "[resourceGroup().location]"
+              }
+          }
+      }
+    },    
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "deployDC1VM",
+      "dependsOn": [
+        "VNet1"
+      ],      
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/1nic-2disk-vm.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "computerName": {
+                  "value": "[variables('dc1name')]"
+              },
+              "computerIP": {
+                  "value": "[variables('dc1IP')]"
+              },
+              "Publisher": {
+                  "value": "MicrosoftWindowsServer"
+              },
+              "Offer": {
+                  "value": "WindowsServer"
+              },
+              "OSVersion": {
+                "value": "[parameters('DC1OSVersion')]"
+              },              
+              "LicenseType": {
+                "value": "[parameters('WindowsLicenseType')]"
+              },            
+              "DataDisk1Name": {
+                "value": "[variables('DCDataDisk1Name')]"
+              },            
+              "VMSize": {
+                "value": "[parameters('DC1VMSize')]"
+              },
+              "vnetName": {
+                "value": "[variables('vnet1Name')]"
+              },            
+              "subnetName": {
+                "value": "[variables('vnet1subnet1Name')]"
+              },            
+              "vnetprefix": {
+                "value": "[variables('vnet1Prefix')]"
+              },            
+              "subnetPrefix": {
+                "value": "[variables('vnet1subnet1Prefix')]"
+              },                                                                                                            
+              "adminUsername": {
+                "value": "[parameters('adminUsername')]"
+              },                                                                                                            
+              "adminPassword": {
+                "value": "[parameters('adminPassword')]"
+              },                                                                                                                                        
+              "location": {
+                  "value": "[resourceGroup().location]"
+              }
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "promotedc1",
+      "dependsOn": [
+        "DeployDC1VM"
+      ],            
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/firstdc.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "computerName": {
+                  "value": "[variables('dc1name')]"
+              },
+              "TimeZone": {
+                  "value": "[parameters('TimeZone')]"
+              },                
+              "NetBiosDomain": {
+                  "value": "[parameters('NetBiosDomain')]"
+              },
+              "DomainName": {
+                "value": "[variables('InternalDomainName')]"
+              },              
+              "adminUsername": {
+                "value": "[parameters('adminUsername')]"
+              },                                                                                                            
+              "adminPassword": {
+                "value": "[parameters('adminPassword')]"
+              }, 
+              "_artifactsLocation": {
+                "value": "[parameters('_artifactsLocation')]"
+              },                                                                                                            
+              "_artifactsLocationSasToken": {
+                "value": "[parameters('_artifactsLocationSasToken')]"
+              },                                                                                                                                                                                                                                                                                                           
+              "location": {
+                  "value": "[resourceGroup().location]"
+              }
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "updatevnet1dns",
+      "dependsOn": [
+        "promotedc1"
+      ],            
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/updatevnetdns.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "vnetName": {
+                  "value": "[variables('vnet1Name')]"
+              },
+              "vnetprefix": {
+                  "value": "[variables('vnet1Prefix')]"
+              },
+              "subnet1Name": {
+                "value": "[variables('vnet1subnet1Name')]"
+              },                                                                                                            
+              "subnet1Prefix": {
+                "value": "[variables('vnet1subnet1Prefix')]"
+              }, 
+              "subnet2Name": {
+                "value": "[variables('vnet1subnet2Name')]"
+              },                                                                                                            
+              "subnet2Prefix": {
+                "value": "[variables('vnet1subnet2Prefix')]"
+              },               
+              "BastionsubnetPrefix": {
+                "value": "[variables('vnet1BastionsubnetPrefix')]"
+              },                         
+              "DNSServerIP": {
+                "value": [
+                  "[variables('dc1IP')]"
+                ]
+              },                                                                                                            
+              "location": {
+                  "value": "[resourceGroup().location]"
+              }
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "restartdc1",
+      "dependsOn": [
+        "updatevnet1dns"
+      ],            
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/restartvm.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "computerName": {
+                  "value": "[variables('dc1name')]"
+              },
+              "_artifactsLocation": {
+                "value": "[parameters('_artifactsLocation')]"
+              },                                                                                                            
+              "_artifactsLocationSasToken": {
+                "value": "[parameters('_artifactsLocationSasToken')]"
+              },                                                                                                                                                                                                                                                                                                                         
+              "location": {
+                  "value": "[resourceGroup().location]"
+              }
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "configdns",
+      "dependsOn": [
+        "restartdc1"
+      ],            
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/configdns.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "computerName": {
+                  "value": "[variables('dc1name')]"
+              },
+              "NetBiosDomain": {
+                  "value": "[parameters('NetBiosDomain')]"
+              },                
+              "InternalDomainName": {
+                "value": "[variables('InternaldomainName')]"
+              },                     
+              "ReverseLookup1": {
+                "value": "[variables('ReverseLookup1')]"
+              },                                                                                                            
+              "dc1lastoctet": {
+                "value": "[variables('dc1lastoctet')]"
+              },  
+              "adminUsername": {
+                "value": "[parameters('adminUsername')]"
+              },                                                                                                            
+              "adminPassword": {
+                "value": "[parameters('adminPassword')]"
+              },                                                                                                                                       
+              "_artifactsLocation": {
+                "value": "[parameters('_artifactsLocation')]"
+              },                                                                                                            
+              "_artifactsLocationSasToken": {
+                "value": "[parameters('_artifactsLocationSasToken')]"
+              },                                                                                                                                                                                                                                                                                                           
+              "location": {
+                  "value": "[resourceGroup().location]"
+              }
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "createous",
+      "dependsOn": [
+        "configdns"
+      ],            
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/createous.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "computerName": {
+                  "value": "[variables('dc1name')]"
+              },
+              "BaseDN": {
+                "value": "[variables('BaseDN')]"
+              },              
+              "_artifactsLocation": {
+                "value": "[parameters('_artifactsLocation')]"
+              },                                                                                                            
+              "_artifactsLocationSasToken": {
+                "value": "[parameters('_artifactsLocationSasToken')]"
+              },                                                                                                                                                                                                                                                                                                           
+              "location": {
+                  "value": "[resourceGroup().location]"
+              }
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "deployToolVM",
+      "dependsOn": [
+        "createous"
+      ],      
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/1nic-1disk-vm.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "computerName": {
+                  "value": "[variables('toolname')]"
+              },
+              "computerIP": {
+                  "value": "[variables('toolIP')]"
+              },
+              "Publisher": {
+                  "value": "MicrosoftWindowsServer"
+              },
+              "Offer": {
+                  "value": "WindowsServer"
+              },
+              "OSVersion": {
+                "value": "[parameters('ToolOSVersion')]"
+              },              
+              "LicenseType": {
+                "value": "[parameters('WindowsLicenseType')]"
+              },            
+              "VMSize": {
+                "value": "[parameters('ToolVMSize')]"
+              },
+              "vnetName": {
+                "value": "[variables('vnet1Name')]"
+              },            
+              "subnetName": {
+                "value": "[variables('vnet1subnet2Name')]"
+              },            
+              "vnetprefix": {
+                "value": "[variables('vnet1Prefix')]"
+              },            
+              "subnetPrefix": {
+                "value": "[variables('vnet1subnet2Prefix')]"
+              },                                                                                                            
+              "adminUsername": {
+                "value": "[parameters('adminUsername')]"
+              },                                                                                                            
+              "adminPassword": {
+                "value": "[parameters('adminPassword')]"
+              },                                                                                                                                        
+              "location": {
+                  "value": "[resourceGroup().location]"
+              }
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "DomainJoinToolVM",
+      "dependsOn": [
+        "DeployToolVM"
+      ],      
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/domainjoin.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "computerName": {
+                  "value": "[variables('toolname')]"
+              },
+              "domainName": {
+                  "value": "[variables('InternalDomainName')]"
+              },
+              "OUPath": {
+                  "value": "[variables('SRVOUPath')]"
+              },
+              "domainJoinOptions": {
+                  "value": 3
+              },
+              "adminUsername": {
+                "value": "[parameters('adminUsername')]"
+              },                                                                                                            
+              "adminPassword": {
+                "value": "[parameters('adminPassword')]"
+              },                                                                                                                                                                                                                                                                             
+              "location": {
+                  "value": "[resourceGroup().location]"
+              }
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "InstallSQLManagementStudio",
+      "dependsOn": [
+        "DomainJoinToolVM"
+      ],            
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/ssms.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "computerName": {
+                  "value": "[variables('toolname')]"
+              },                                                                                                                          
+              "_artifactsLocation": {
+                "value": "[parameters('_artifactsLocation')]"
+              },                                                                                                            
+              "_artifactsLocationSasToken": {
+                "value": "[parameters('_artifactsLocationSasToken')]"
+              },                                                                                                                                                                                                                                                                                                           
+              "location": {
+                  "value": "[resourceGroup().location]"
+              }
+          }
+      }
+    },    
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "CreateSQLAccounts",
+      "dependsOn": [
+        "createous"
+      ],            
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/sqlaccounts.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "computerName": {
+                  "value": "[variables('dc1name')]"
+              },
+              "BaseDN": {
+                  "value": "[variables('BaseDN')]"
+              },            
+              "DomainName": {
+                  "value": "[variables('InternalDomainName')]"
+              },   
+              "NetBiosDomain": {
+                  "value": "[parameters('NetBiosDomain')]"
+              },    
+              "ServiceAccount": {
+                  "value": "[parameters('ServiceAccount')]"
+              },                  
+              "InstallAccount": {
+                  "value": "[parameters('InstallAccount')]"
+              },                                
+              "adminUsername": {
+                "value": "[parameters('adminUsername')]"
+              },                                                                                                            
+              "adminPassword": {
+                "value": "[parameters('adminPassword')]"
+              },   
+              "_artifactsLocation": {
+                "value": "[parameters('_artifactsLocation')]"
+              },                                                                                                            
+              "_artifactsLocationSasToken": {
+                "value": "[parameters('_artifactsLocationSasToken')]"
+              },                                                                   
+              "location": {
+                  "value": "[resourceGroup().location]"
+              }
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "DeploySQLAvailabilitySet",
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/AvailabilitySet.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "AvailabilitySetName": {
+                  "value": "[parameters('AvailabilitySetName')]"
+              },
+              "UpdateDomainCount": {
+                  "value": "5"
+              },            
+              "FaultDomainCount": {
+                  "value": "2"
+              },               
+              "Sku": {
+                  "value": "Aligned"
+              },                                          
+              "location": {
+                  "value": "[resourceGroup().location]"
+              }
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "DeploySQL2019AzureVM1",
+      "dependsOn": [
+        "createous",        
+        "DeploySQLAvailabilitySet"
+      ],           
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/sql-servervm-multi-nic.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "computerName": {
+                  "value": "[variables('sqlname1')]"
+              },
+              "LicenseType": {
+                "value": "[parameters('WindowsLicenseType')]"
+              },       
+              "SQLLicenseType": {
+                "value": "[parameters('SQLLicenseType')]"
+              },                           
+              "AvailabilitySetName": {
+                  "value": "[parameters('AvailabilitySetName')]"
+              },                                                          
+              "PrivateIP": {
+                  "value": "[variables('sql1privIP')]"
+              },
+              "PublicIP": {
+                  "value": "[variables('sql1pubIP')]"
+              },                            
+              "subnet1Name": {
+                "value": "[variables('vnet1subnet1Name')]"
+              },      
+              "subnet2Name": {
+                "value": "[variables('vnet1subnet2Name')]"
+              },           
+              "vnetName": {
+                "value": "[variables('vnet1Name')]"
+              }, 
+              "osDiskType": {
+                "value": "[parameters('OSDiskType')]"
+              },    
+              "dataDisks": {
+                  "value": [
+                      {
+                          "lun": 0,
+                          "createOption": "attach",
+                          "caching": "ReadOnly",
+                          "writeAcceleratorEnabled": false,
+                          "id": null,
+                          "name": "[concat(variables('sqlname1'),'_DataDisk_0')]",
+                          "storageAccountType": null,
+                          "diskSizeGB": null,
+                          "diskEncryptionSet": null
+                      },
+                      {
+                          "lun": 1,
+                          "createOption": "attach",
+                          "caching": "None",
+                          "writeAcceleratorEnabled": false,
+                          "id": null,
+                          "name": "[concat(variables('sqlname1'),'_DataDisk_1')]",
+                          "storageAccountType": null,
+                          "diskSizeGB": null,
+                          "diskEncryptionSet": null
+                      }
+                  ]
+              },      
+              "dataDiskResources": {
+                  "value": [
+                      {
+                          "name": "[concat(variables('sqlname1'),'_DataDisk_0')]",
+                          "sku": "[parameters('OSDiskType')]",
+                          "properties": {
+                              "diskSizeGB": 1024,
+                              "creationData": {
+                                  "createOption": "empty"
+                              }
+                          }
+                      },
+                      {
+                          "name": "[concat(variables('sqlname1'),'_DataDisk_1')]",
+                          "sku": "[parameters('OSDiskType')]",
+                          "properties": {
+                              "diskSizeGB": 1024,
+                              "creationData": {
+                                  "createOption": "empty"
+                              }
+                          }
+                      }
+                  ]
+              },      
+              "VMSize": {
+                "value": "[parameters('SQLVMSize')]"
+              },                            
+              "adminUsername": {
+                "value": "[parameters('adminUsername')]"
+              },                                                                                                            
+              "adminPassword": {
+                "value": "[parameters('adminPassword')]"
+              },   
+              "sqlConnectivityType": {
+                  "value": "Private"
+              },
+              "sqlPortNumber": {
+                  "value": 1433
+              },
+              "sqlStorageWorkloadType": {
+                  "value": "OLTP"
+              },
+              "sqlStorageDisksConfigurationType": {
+                  "value": "NEW"
+              },
+              "sqlAutopatchingDayOfWeek": {
+                  "value": "Sunday"
+              },
+              "sqlAutopatchingStartHour": {
+                  "value": "2"
+              },
+              "sqlAutopatchingWindowDuration": {
+                  "value": "60"
+              },
+              "dataPath": {
+                  "value": "F:\\data"
+              },
+              "dataDisksLUNs": {
+                  "value": [
+                      0
+                  ]
+              },
+              "logPath": {
+                  "value": "G:\\log"
+              },
+              "logDisksLUNs": {
+                  "value": [
+                      1
+                  ]
+              },
+              "tempDbPath": {
+                  "value": "D:\\tempDb"
+              },
+              "rServicesEnabled": {
+                  "value": "false"
+              },                                                                                                                                                                 
+              "location": {
+                  "value": "[resourceGroup().location]"
+              }
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "DeploySQL2019AzureVM2",
+      "dependsOn": [
+        "createous",
+        "DeploySQLAvailabilitySet"     
+      ],                 
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/sql-servervm-multi-nic.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "computerName": {
+                  "value": "[variables('sqlname2')]"
+              },
+              "LicenseType": {
+                "value": "[parameters('WindowsLicenseType')]"
+              },   
+              "SQLLicenseType": {
+                "value": "[parameters('SQLLicenseType')]"
+              },                               
+              "AvailabilitySetName": {
+                  "value": "[parameters('AvailabilitySetName')]"
+              },                                          
+              "PrivateIP": {
+                  "value": "[variables('sql2privIP')]"
+              },
+              "PublicIP": {
+                  "value": "[variables('sql2pubIP')]"
+              },                            
+              "subnet1Name": {
+                "value": "[variables('vnet1subnet1Name')]"
+              },      
+              "subnet2Name": {
+                "value": "[variables('vnet1subnet2Name')]"
+              },           
+              "vnetName": {
+                "value": "[variables('vnet1Name')]"
+              }, 
+              "osDiskType": {
+                "value": "[parameters('OSDiskType')]"
+              },    
+              "dataDisks": {
+                  "value": [
+                      {
+                          "lun": 0,
+                          "createOption": "attach",
+                          "caching": "ReadOnly",
+                          "writeAcceleratorEnabled": false,
+                          "id": null,
+                          "name": "[concat(variables('sqlname2'),'_DataDisk_0')]",
+                          "storageAccountType": null,
+                          "diskSizeGB": null,
+                          "diskEncryptionSet": null
+                      },
+                      {
+                          "lun": 1,
+                          "createOption": "attach",
+                          "caching": "None",
+                          "writeAcceleratorEnabled": false,
+                          "id": null,
+                          "name": "[concat(variables('sqlname2'),'_DataDisk_1')]",
+                          "storageAccountType": null,
+                          "diskSizeGB": null,
+                          "diskEncryptionSet": null
+                      }
+                  ]
+              },      
+              "dataDiskResources": {
+                  "value": [
+                      {
+                          "name": "[concat(variables('sqlname2'),'_DataDisk_0')]",
+                          "sku": "[parameters('OSDiskType')]",
+                          "properties": {
+                              "diskSizeGB": 1024,
+                              "creationData": {
+                                  "createOption": "empty"
+                              }
+                          }
+                      },
+                      {
+                          "name": "[concat(variables('sqlname2'),'_DataDisk_1')]",
+                          "sku": "[parameters('OSDiskType')]",
+                          "properties": {
+                              "diskSizeGB": 1024,
+                              "creationData": {
+                                  "createOption": "empty"
+                              }
+                          }
+                      }
+                  ]
+              },      
+              "VMSize": {
+                "value": "[parameters('SQLVMSize')]"
+              },                            
+              "adminUsername": {
+                "value": "[parameters('adminUsername')]"
+              },                                                                                                            
+              "adminPassword": {
+                "value": "[parameters('adminPassword')]"
+              },   
+
+              "sqlConnectivityType": {
+                  "value": "Private"
+              },
+              "sqlPortNumber": {
+                  "value": 1433
+              },
+              "sqlStorageWorkloadType": {
+                  "value": "OLTP"
+              },
+              "sqlStorageDisksConfigurationType": {
+                  "value": "NEW"
+              },
+              "sqlAutopatchingDayOfWeek": {
+                  "value": "Sunday"
+              },
+              "sqlAutopatchingStartHour": {
+                  "value": "2"
+              },
+              "sqlAutopatchingWindowDuration": {
+                  "value": "60"
+              },
+              "dataPath": {
+                  "value": "F:\\data"
+              },
+              "dataDisksLUNs": {
+                  "value": [
+                      0
+                  ]
+              },
+              "logPath": {
+                  "value": "G:\\log"
+              },
+              "logDisksLUNs": {
+                  "value": [
+                      1
+                  ]
+              },
+              "tempDbPath": {
+                  "value": "D:\\tempDb"
+              },
+              "rServicesEnabled": {
+                  "value": "false"
+              },                                                                                                                                                                 
+              "location": {
+                  "value": "[resourceGroup().location]"
+              }
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "DomainJoinSQL1VM",
+      "dependsOn": [
+        "createous",
+        "DeploySQL2019AzureVM1"
+      ],      
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/domainjoin.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "computerName": {
+                  "value": "[variables('sqlname1')]"
+              },
+              "domainName": {
+                  "value": "[variables('InternalDomainName')]"
+              },
+              "OUPath": {
+                  "value": "[variables('SRVOUPath')]"
+              },
+              "domainJoinOptions": {
+                  "value": 3
+              },
+              "adminUsername": {
+                "value": "[parameters('adminUsername')]"
+              },                                                                                                            
+              "adminPassword": {
+                "value": "[parameters('adminPassword')]"
+              },                                                                                                                                                                                                                                                                             
+              "location": {
+                  "value": "[resourceGroup().location]"
+              }
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "DomainJoinSQL2VM",
+      "dependsOn": [
+        "createous",        
+        "DeploySQL2019AzureVM2"
+      ],      
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/domainjoin.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "computerName": {
+                  "value": "[variables('sqlname2')]"
+              },
+              "domainName": {
+                  "value": "[variables('InternalDomainName')]"
+              },
+              "OUPath": {
+                  "value": "[variables('SRVOUPath')]"
+              },
+              "domainJoinOptions": {
+                  "value": 3
+              },
+              "adminUsername": {
+                "value": "[parameters('adminUsername')]"
+              },                                                                                                            
+              "adminPassword": {
+                "value": "[parameters('adminPassword')]"
+              },                                                                                                                                                                                                                                                                             
+              "location": {
+                  "value": "[resourceGroup().location]"
+              }
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "GrantInstallLocalAdminSQLVM1",
+      "dependsOn": [
+        "DomainJoinSQL1VM"
+      ],      
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/grantlocaladmin.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "computerName": {
+                  "value": "[variables('sqlname1')]"
+              },
+              "TimeZone": {
+                  "value": "[parameters('TimeZone')]"
+              },              
+              "Account": {
+                  "value": "[parameters('InstallAccount')]"
+              },            
+              "NetBiosDomain": {
+                  "value": "[parameters('NetBiosDomain')]"
+              },    
+              "location": {
+                  "value": "[resourceGroup().location]"
+              },
+              "_artifactsLocation": {
+                "value": "[parameters('_artifactsLocation')]"
+              },                                                                                                            
+              "_artifactsLocationSasToken": {
+                "value": "[parameters('_artifactsLocationSasToken')]"
+              }              
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "GrantInstallLocalAdminSQLVM2",
+      "dependsOn": [
+        "DomainJoinSQL2VM"
+      ],          
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/grantlocaladmin.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "computerName": {
+                  "value": "[variables('sqlname2')]"
+              },
+              "TimeZone": {
+                  "value": "[parameters('TimeZone')]"
+              },              
+              "Account": {
+                  "value": "[parameters('InstallAccount')]"
+              },            
+              "NetBiosDomain": {
+                  "value": "[parameters('NetBiosDomain')]"
+              },    
+              "location": {
+                  "value": "[resourceGroup().location]"
+              },
+              "_artifactsLocation": {
+                "value": "[parameters('_artifactsLocation')]"
+              },                                                                                                            
+              "_artifactsLocationSasToken": {
+                "value": "[parameters('_artifactsLocationSasToken')]"
+              }              
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "CreateSQLLoginforInstallSQLVM1",
+      "dependsOn": [
+        "GrantInstallLocalAdminSQLVM1"
+      ],      
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/createsqllogin.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "computerName": {
+                  "value": "[variables('sqlname1')]"
+              },
+              "InstallAccount": {
+                  "value": "[parameters('InstallAccount')]"
+              },      
+              "SvcAccount": {
+                  "value": "[parameters('ServiceAccount')]"
+              },                   
+              "NetBiosDomain": {
+                  "value": "[parameters('NetBiosDomain')]"
+              },    
+              "DomainName": {
+                  "value": "[variables('InternalDomainName')]"
+              },  
+              "adminUsername": {
+                "value": "[parameters('adminUsername')]"
+              },                                                                                                            
+              "adminPassword": {
+                "value": "[parameters('adminPassword')]"
+              },                                                                                                                                                                                                                                                                                                           
+              "location": {
+                  "value": "[resourceGroup().location]"
+              },
+              "_artifactsLocation": {
+                "value": "[parameters('_artifactsLocation')]"
+              },                                                                                                            
+              "_artifactsLocationSasToken": {
+                "value": "[parameters('_artifactsLocationSasToken')]"
+              }              
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "CreateSQLLoginforInstallSQLVM2",
+      "dependsOn": [
+        "GrantInstallLocalAdminSQLVM2"
+      ],      
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/createsqllogin.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "computerName": {
+                  "value": "[variables('sqlname2')]"
+              },
+              "InstallAccount": {
+                  "value": "[parameters('InstallAccount')]"
+              },      
+              "SvcAccount": {
+                  "value": "[parameters('ServiceAccount')]"
+              },                          
+              "NetBiosDomain": {
+                  "value": "[parameters('NetBiosDomain')]"
+              },    
+              "DomainName": {
+                  "value": "[variables('InternalDomainName')]"
+              }, 
+              "adminUsername": {
+                "value": "[parameters('adminUsername')]"
+              },                                                                                                            
+              "adminPassword": {
+                "value": "[parameters('adminPassword')]"
+              },                                                                                                                                                                                                                                                                                                            
+              "location": {
+                  "value": "[resourceGroup().location]"
+              },
+              "_artifactsLocation": {
+                "value": "[parameters('_artifactsLocation')]"
+              },                                                                                                            
+              "_artifactsLocationSasToken": {
+                "value": "[parameters('_artifactsLocationSasToken')]"
+              }              
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "InstallWFCSQLVM1",
+      "dependsOn": [
+        "CreateSQLLoginforInstallSQLVM1"
+      ],      
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/installwfc.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "computerName": {
+                  "value": "[variables('sqlname1')]"
+              },
+              "location": {
+                  "value": "[resourceGroup().location]"
+              },
+              "_artifactsLocation": {
+                "value": "[parameters('_artifactsLocation')]"
+              },                                                                                                            
+              "_artifactsLocationSasToken": {
+                "value": "[parameters('_artifactsLocationSasToken')]"
+              }              
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "InstallWFCSQLVM2",
+      "dependsOn": [
+        "CreateSQLLoginforInstallSQLVM2"
+      ],      
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/installwfc.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "computerName": {
+                  "value": "[variables('sqlname2')]"
+              },
+              "location": {
+                  "value": "[resourceGroup().location]"
+              },
+              "_artifactsLocation": {
+                "value": "[parameters('_artifactsLocation')]"
+              },                                                                                                            
+              "_artifactsLocationSasToken": {
+                "value": "[parameters('_artifactsLocationSasToken')]"
+              }              
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "RoutingSQLVM1",
+      "dependsOn": [
+        "InstallWFCSQLVM1"
+      ],      
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/routing.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "computerName": {
+                  "value": "[variables('sqlname1')]"
+              },
+              "NextHop": {
+                  "value": "[variables('sql1DGpubIP')]"
+              },       
+              "PrivateSubnet": {
+                  "value": "[variables('Subnet1ID')]"
+              },                                             
+              "PublicSubnet": {
+                  "value": "[variables('Subnet2ID')]"
+              },                                                
+              "location": {
+                  "value": "[resourceGroup().location]"
+              },
+              "_artifactsLocation": {
+                "value": "[parameters('_artifactsLocation')]"
+              },                                                                                                            
+              "_artifactsLocationSasToken": {
+                "value": "[parameters('_artifactsLocationSasToken')]"
+              }              
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "RoutingSQLVM2",
+      "dependsOn": [
+        "InstallWFCSQLVM2"
+      ],      
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/routing.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "computerName": {
+                  "value": "[variables('sqlname2')]"
+              },
+              "NextHop": {
+                  "value": "[variables('sql2DGpubIP')]"
+              },
+              "PrivateSubnet": {
+                  "value": "[variables('Subnet1ID')]"
+              },                                             
+              "PublicSubnet": {
+                  "value": "[variables('Subnet2ID')]"
+              },                            
+              "location": {
+                  "value": "[resourceGroup().location]"
+              },
+              "_artifactsLocation": {
+                "value": "[parameters('_artifactsLocation')]"
+              },                                                                                                            
+              "_artifactsLocationSasToken": {
+                "value": "[parameters('_artifactsLocationSasToken')]"
+              }              
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "RestartSQLVM1",
+      "dependsOn": [
+        "RoutingSQLVM1"
+      ],            
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/restartvm.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "computerName": {
+                  "value": "[variables('sqlname1')]"
+              },
+              "_artifactsLocation": {
+                "value": "[parameters('_artifactsLocation')]"
+              },                                                                                                            
+              "_artifactsLocationSasToken": {
+                "value": "[parameters('_artifactsLocationSasToken')]"
+              },                                                                                                                                                                                                                                                                                                                         
+              "location": {
+                  "value": "[resourceGroup().location]"
+              }
+          }
+      }
+    },    
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "RestartSQLVM2",
+      "dependsOn": [
+        "RoutingSQLVM2"
+      ],            
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/restartvm.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "computerName": {
+                  "value": "[variables('sqlname2')]"
+              },
+              "_artifactsLocation": {
+                "value": "[parameters('_artifactsLocation')]"
+              },                                                                                                            
+              "_artifactsLocationSasToken": {
+                "value": "[parameters('_artifactsLocationSasToken')]"
+              },                                                                                                                                                                                                                                                                                                                         
+              "location": {
+                  "value": "[resourceGroup().location]"
+              }
+          }
+      }
+    },        
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "CreateStorage",
+      "dependsOn": [
+        "RestartSQLVM1",
+        "RestartSQLVM2"    
+      ],      
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/storage.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "StorageAccountName": {
+                  "value": "[variables('StorageAccountName')]"
+              },       
+              "location": {
+                  "value": "[resourceGroup().location]"
+              }          
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "CreateWFCSQLVM1",
+      "dependsOn": [
+        "CreateStorage"      
+      ],      
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/createwfc.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "computerName": {
+                  "value": "[variables('sqlname1')]"
+              },
+              "SQLClusterName": {
+                  "value": "[parameters('sqlclustername')]"
+              },  
+              "PrivateSubnet": {
+                  "value": "[variables('Subnet1ID')]"
+              },                                                                              
+              "NetBiosDomain": {
+                  "value": "[parameters('NetBiosDomain')]"
+              },          
+              "adminUsername": {
+                "value": "[parameters('adminUsername')]"
+              },                                                                                                                                                                                                                     
+              "adminPassword": {
+                "value": "[parameters('adminPassword')]"
+              },                                                                                                                                                                                                                                                                                                            
+              "location": {
+                  "value": "[resourceGroup().location]"
+              },
+              "_artifactsLocation": {
+                "value": "[parameters('_artifactsLocation')]"
+              },                                                                                                            
+              "_artifactsLocationSasToken": {
+                "value": "[parameters('_artifactsLocationSasToken')]"
+              }                                                                            
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "CreateWFCSQLVM2",
+      "dependsOn": [
+        "CreateWFCSQLVM1"      
+      ],      
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/createwfc.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "computerName": {
+                  "value": "[variables('sqlname2')]"
+              },
+              "SQLClusterName": {
+                  "value": "[parameters('sqlclustername')]"
+              },   
+              "PrivateSubnet": {
+                  "value": "[variables('Subnet1ID')]"
+              },                                                                             
+              "NetBiosDomain": {
+                  "value": "[parameters('NetBiosDomain')]"
+              },          
+              "adminUsername": {
+                "value": "[parameters('adminUsername')]"
+              },                                                                                                                                                                                                                  
+              "adminPassword": {
+                "value": "[parameters('adminPassword')]"
+              },                                                                                                                                                                                                                                                                                                            
+              "location": {
+                  "value": "[resourceGroup().location]"
+              },
+              "_artifactsLocation": {
+                "value": "[parameters('_artifactsLocation')]"
+              },                                                                                                            
+              "_artifactsLocationSasToken": {
+                "value": "[parameters('_artifactsLocationSasToken')]"
+              }                                                                            
+          }
+      }
+    },  
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "GrantClusterCNO",
+      "dependsOn": [
+        "CreateWFCSQLVM2"      
+      ],      
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/grantcluster.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "computerName": {
+                  "value": "[variables('dc1name')]"
+              },
+              "SQLClusterName": {
+                  "value": "[parameters('SqlClusterName')]"
+              },   
+              "NetBiosDomain": {
+                  "value": "[parameters('NetBiosDomain')]"
+              },                
+              "BaseDN": {
+                  "value": "[variables('BaseDN')]"
+              },               
+              "location": {
+                  "value": "[resourceGroup().location]"
+              },
+              "adminUsername": {
+                "value": "[parameters('adminUsername')]"
+              },                                                                                                                                                                                                                  
+              "adminPassword": {
+                "value": "[parameters('adminPassword')]"
+              },                                                                                                                                                                                                                                                                                                                          
+              "_artifactsLocation": {
+                "value": "[parameters('_artifactsLocation')]"
+              },                                                                                                            
+              "_artifactsLocationSasToken": {
+                "value": "[parameters('_artifactsLocationSasToken')]"
+              }                                                                            
+          }
+      }
+    },       
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "EnableSQLAlwaysOnSQLVM1",
+      "dependsOn": [
+        "CreateWFCSQLVM1",
+        "CreateWFCSQLVM2",
+        "GrantClusterCNO"      
+      ],      
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/enablesqlalwayson.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "computerName": {
+                  "value": "[variables('sqlname1')]"
+              },
+              "NetBiosDomain": {
+                  "value": "[parameters('NetBiosDomain')]"
+              },          
+              "adminUsername": {
+                "value": "[parameters('InstallAccount')]"
+              },                                                                                                            
+              "adminPassword": {
+                "value": "[parameters('adminPassword')]"
+              },                                                                                                                                                                                                                                                                                                            
+              "location": {
+                  "value": "[resourceGroup().location]"
+              },
+              "_artifactsLocation": {
+                "value": "[parameters('_artifactsLocation')]"
+              },                                                                                                            
+              "_artifactsLocationSasToken": {
+                "value": "[parameters('_artifactsLocationSasToken')]"
+              }                                                                            
+          }
+      }
+    },        
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "EnableSQLAlwaysOnSQLVM2",
+      "dependsOn": [
+        "EnableSQLAlwaysOnSQLVM1"      
+      ],      
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/enablesqlalwayson.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "computerName": {
+                  "value": "[variables('sqlname2')]"
+              },
+              "NetBiosDomain": {
+                  "value": "[parameters('NetBiosDomain')]"
+              },          
+              "adminUsername": {
+                "value": "[parameters('InstallAccount')]"
+              },                                                                                                            
+              "adminPassword": {
+                "value": "[parameters('adminPassword')]"
+              },                                                                                                                                                                                                                                                                                                            
+              "location": {
+                  "value": "[resourceGroup().location]"
+              },
+              "_artifactsLocation": {
+                "value": "[parameters('_artifactsLocation')]"
+              },                                                                                                            
+              "_artifactsLocationSasToken": {
+                "value": "[parameters('_artifactsLocationSasToken')]"
+              }                                                                            
+          }
+      }
+    },            
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "ConfigureWFCSQL",
+      "dependsOn": [
+        "EnableSQLAlwaysOnSQLVM1",
+        "EnableSQLAlwaysOnSQLVM2"        
+      ],      
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/configsqlalwayson.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "computerName": {
+                  "value": "[variables('sqlname1')]"
+              },                  
+              "SQLAGName": {
+                  "value": "[parameters('sqlagname')]"
+              }, 
+              "SQLAPName": {
+                  "value": "[parameters('sqlapname')]"
+              },                
+              "SQLAPIP": {
+                  "value": "[variables('sqlapIP')]"
+              },               
+              "SQLNode1": {
+                  "value": "[variables('sqlname1')]"
+              },                     
+              "SQLNode2": {
+                  "value": "[variables('sqlname2')]"
+              },   
+              "SQLDBName": {
+                  "value": "[variables('sqldbname')]"
+              },                        
+              "SQLDBOwner": {
+                "value": "[parameters('InstallAccount')]"
+              },      
+              "SQLServiceAccount": {
+                "value": "[parameters('ServiceAccount')]"
+              },                
+              "NetBiosDomain": {
+                  "value": "[parameters('NetBiosDomain')]"
+              },          
+              "DomainName": {
+                  "value": "[variables('InternalDomainName')]"
+              },                        
+              "StorageAccountName": {
+                  "value": "[variables('StorageAccountName')]"
+              },                                            
+              "StorageEndpoint": {
+                  "value": "[variables('StorageEndpoint')]"
+              },                                                                                                              
+              "StorageAccountKey": {
+                  "value": "[reference('CreateStorage').outputs.Key.value]"             
+              },   
+              "adminUsername": {
+                "value": "[parameters('adminUsername')]"
+              },                                                                                                                
+              "adminPassword": {
+                "value": "[parameters('adminPassword')]"
+              },                                                                                                                                                                                                                                                                                                            
+              "location": {
+                  "value": "[resourceGroup().location]"
+              },
+              "_artifactsLocation": {
+                "value": "[parameters('_artifactsLocation')]"
+              },                                                                                                            
+              "_artifactsLocationSasToken": {
+                "value": "[parameters('_artifactsLocationSasToken')]"
+              }                                                                            
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "DeploySQLLoadBalancer",
+      "dependsOn": [
+        "ConfigureWFCSQL"        
+      ],            
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/LoadBalancer.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "LoadBalancerName": {
+                  "value": "[parameters('LoadBalancerName')]"
+              },
+              "SQLAPName": {
+                  "value": "[parameters('sqlapname')]"
+              },    
+              "SQLAPIP": {
+                  "value": "[variables('sqlapIP')]"
+              },                        
+              "vnetName": {
+                "value": "[variables('vnet1Name')]"
+              },               
+              "subnetName": {
+                "value": "[variables('vnet1subnet2Name')]"
+              },                         
+              "Sku": {
+                  "value": "[variables('LoadBalancerSku')]"
+              },                                          
+              "location": {
+                  "value": "[resourceGroup().location]"
+              }
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "DeploySQL2019AzureVM1-LB",
+      "dependsOn": [
+        "DeploySQLLoadBalancer"
+      ],           
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/sql-servervm-multi-nic-lb.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "computerName": {
+                  "value": "[variables('sqlname1')]"
+              },
+              "LoadBalancerName": {
+                  "value": "[parameters('LoadBalancerName')]"
+              },                                                                   
+              "PublicIP": {
+                  "value": "[variables('sql1pubIP')]"
+              },                            
+              "subnetName": {
+                "value": "[variables('vnet1subnet2Name')]"
+              },           
+              "vnetName": {
+                "value": "[variables('vnet1Name')]"
+              },   
+              "location": {
+                  "value": "[resourceGroup().location]"
+              }
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "DeploySQL2019AzureVM2-LB",
+      "dependsOn": [
+        "DeploySQLLoadBalancer"     
+      ],                 
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[uri(parameters('_artifactsLocation'), concat('SQLAO/.azure/linkedtemplates/sql-servervm-multi-nic-lb.json', parameters('_artifactsLocationSasToken')))]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "computerName": {
+                  "value": "[variables('sqlname2')]"
+              },
+              "LoadBalancerName": {
+                  "value": "[parameters('LoadBalancerName')]"
+              },                                                                   
+              "PublicIP": {
+                  "value": "[variables('sql2pubIP')]"
+              },                            
+              "subnetName": {
+                "value": "[variables('vnet1subnet2Name')]"
+              },           
+              "vnetName": {
+                "value": "[variables('vnet1Name')]"
+              },    
+              "location": {
+                  "value": "[resourceGroup().location]"
+              }
+          }
+      }
+    }                                                                                                                                                                                            
+  ]
+}
