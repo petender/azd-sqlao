@@ -1,3 +1,6 @@
+Sophie made some changes here!!!
+
+
 # SQL Server 2019 Always On Cluster
 
 This demo deploys the necessary Azure Virtual Machine resources, to run a SQL Qlways-On Cluster in an ADDS Domain. There is also an additional Management Workstation with SQL Server Management Studio.  
