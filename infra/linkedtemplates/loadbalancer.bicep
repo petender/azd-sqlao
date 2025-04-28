@@ -63,7 +63,7 @@ resource LoadBalancer 'Microsoft.Network/loadBalancers@2020-05-01' = {
             id: resourceId('Microsoft.Network/loadBalancers/backendAddressPools', LoadBalancerName, 'SQLServers')
           }
           probe: {
-            id: resourceId('Microsoft.Network/loadBalancers/probes/SQLAlwaysOnEndPointProbe', LoadBalancerName, SQLAPName)
+            id: resourceId('Microsoft.Network/loadBalancers/probes', LoadBalancerName, SQLAPName, 'SQLAlwaysOnEndPointProbe')
           }
         }
       }
